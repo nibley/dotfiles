@@ -1,0 +1,1 @@
+/Users/alex/.oh-my-zsh/themes/MAIN.zsh-theme
