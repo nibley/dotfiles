@@ -1,5 +1,4 @@
-. .bashrc
-source .profile # some envvars
+. .profile
 
 export SAVEHIST=55555
 

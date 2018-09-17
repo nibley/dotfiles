@@ -2,5 +2,9 @@ alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-proc
 
 alias gx='gc -m . && echo && gp'
 
+alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
+
 # not strictly aliases
+
 mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }
