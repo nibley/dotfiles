@@ -1,0 +1,9 @@
+#! /usr/bin/env bash
+profPath=$(find-firefox-def-profile)
+
+cd "~/Library/Application Support/Firefox/$profPath"
+
+mkdir chrome
+cd chrome
+ 
+ls

@@ -4,6 +4,9 @@ SOFT-LINK TO ~/bin
 SOFT-LINK, OTHER
 - MAIN.zsh-theme to ~/.oh-my-zsh/themes
 
+SHOULD BE RUN
+- mac-gitignore
+
 MISC. CONSIDER
 - subl
 
