@@ -1,7 +1,7 @@
 alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 
 alias gx='gc -m . && echo && gp'
-alias gax='gaa && gx'
+alias gax='gaa && gx && gst'
 
 alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
