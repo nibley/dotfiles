@@ -1,0 +1,11 @@
+SOFT-LINK TO ~/bin
+- find-firefox-def-profile
+
+SOFT-LINK, OTHER
+- MAIN.zsh-theme to ~/.oh-my-zsh/themes
+
+MISC. CONSIDER
+- subl
+
+MISC. TODO
+- make a device file that erases the mac/linux distinctions on some useful dirs, like Application support vs .dirs
