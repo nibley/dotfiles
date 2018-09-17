@@ -1,5 +1,6 @@
 # SOFT-LINK TO ~/bin
 # - find-firefox-def-profile
+ln -s find-firefox-def-profile ~/bin
 
 # SOFT-LINK OUTWARDS
 # - MAIN.zsh-theme to ~/.oh-my-zsh/themes
