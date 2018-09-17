@@ -1,6 +1,6 @@
 alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 
-alias gx='gc && gp'
+alias gx='gc && echo && gp'
 
 # not strictly aliases
 mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }
