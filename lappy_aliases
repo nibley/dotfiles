@@ -2,3 +2,5 @@ alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-proc
 
 # not strictly aliases
 mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }
+
+### alias gx ="gc && gp"
