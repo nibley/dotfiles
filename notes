@@ -12,9 +12,11 @@ ln aliases ~/.aliases
 
 # SHOULD BE RUN
 # - mac-gitignore
+# TODO before running make reusable "done" flag system and create board for other related features after that
 
 # MISC. CONSIDER
 # - subl
 
 # MISC. TODO
 # - make a device file that erases the mac/linux distinctions on some useful dirs, like Application support vs .dirs
+# - dict of rules for linking onto a machine, and script to execute them
