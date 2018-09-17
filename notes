@@ -1,14 +1,18 @@
-SOFT-LINK TO ~/bin
-- find-firefox-def-profile
+# SOFT-LINK TO ~/bin
+# - find-firefox-def-profile
 
-SOFT-LINK, OTHER
-- MAIN.zsh-theme to ~/.oh-my-zsh/themes
+# SOFT-LINK, OTHER
+# - MAIN.zsh-theme to ~/.oh-my-zsh/themes
 
-SHOULD BE RUN
-- mac-gitignore
+# HARD-LINK OUTWARDS
+# - zshrc
+ln zshrc ~/.zshrc
 
-MISC. CONSIDER
-- subl
+# SHOULD BE RUN
+# - mac-gitignore
 
-MISC. TODO
-- make a device file that erases the mac/linux distinctions on some useful dirs, like Application support vs .dirs
+# MISC. CONSIDER
+# - subl
+
+# MISC. TODO
+# - make a device file that erases the mac/linux distinctions on some useful dirs, like Application support vs .dirs
