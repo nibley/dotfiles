@@ -7,6 +7,8 @@
 # HARD-LINK OUTWARDS
 # - zshrc
 ln zshrc ~/.zshrc
+# - vimrc
+ln vimrc ~/.vimrc
 # - aliases
 ln aliases ~/.aliases
 # - MAIN.zsh-theme to ~/.oh-my-zsh/custom/themes
