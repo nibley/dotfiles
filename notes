@@ -3,14 +3,15 @@
 ln -s find-firefox-def-profile ~/bin
 
 # SOFT-LINK OUTWARDS
-# - MAIN.zsh-theme to ~/.oh-my-zsh/themes
-ln -s MAIN.zsh-theme ~/.oh-my-zsh/themes
+# - ?
 
 # HARD-LINK OUTWARDS
 # - zshrc
 ln zshrc ~/.zshrc
 # - aliases
 ln aliases ~/.aliases
+# - MAIN.zsh-theme to ~/.oh-my-zsh/custom/themes
+ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
 
 # SHOULD BE RUN
 # - mac-gitignore
