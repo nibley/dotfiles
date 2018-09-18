@@ -1,6 +1,5 @@
 # SOFT-LINK TO ~/bin
-# - find-firefox-def-profile
-ln -s find-firefox-def-profile ~/bin
+# - ?
 
 # SOFT-LINK OUTWARDS
 # - ?
@@ -14,6 +13,8 @@ ln aliases ~/.aliases
 ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
 # - always_lsF to ~/bin/ls
 ln always_lsF ~/bin/ls
+# - find-firefox-def-profile
+ln find-firefox-def-profile ~/bin
 
 # SHOULD BE RUN
 # - mac-gitignore
