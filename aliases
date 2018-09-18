@@ -1,13 +1,46 @@
+### Aliases (shell-agnostic)
+###
+#
 echo "sourcing .aliases"
 
-alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
+###
+## technical
+#
+alias rm='rm -i'
+
+alias bpython2=/usr/local/bin/bpython
 
 alias gx='gc -m . && echo && gp'
 alias gax='gaa && echo; gx && echo; gst'
 
+###
+## general
+#
+alias kanye='imgcat ~/Pictures/tenor.gif'
+
+alias cslogin='ssh -Y anibley@ssh.cs.brown.edu'
+
+alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
+alias c='chromekill'
+
+alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}" && killall Dock'
+
+alias reveal='open -R'
+
+alias audio='open -a "AU Lab"; open -a "Audio MIDI Setup"'
+
+## screen
 alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend; sleep 0.3; osascript -e "tell application \"iTerm\" to tell current window to hide hotkey window"'
 
+alias displaysleep='echo "Ctrl Shft Pwr"; pmset displaysleepnow'
 
-# not strictly aliases
+alias screensaver='/System/Library/CoreServices/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine'
+
+
+###
+## not strictly aliases
+#
 
 mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }
