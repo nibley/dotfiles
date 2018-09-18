@@ -3,7 +3,7 @@ alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-proc
 alias gx='gc -m . && echo && gp'
 alias gax='gaa && gx && gst'
 
-alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend; sleep 0.3; osascript -e "tell application \"iTerm\" to tell current window to hide hotkey window"'
 
 
 # not strictly aliases
