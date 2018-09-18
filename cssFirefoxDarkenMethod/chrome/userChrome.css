@@ -994,3 +994,11 @@ statuspanel .statuspanel-label {
 .tab-line[selected=true] {
   background-color: var(--in-content-border-focus)!important
 }
+
+
+/* hide scrollbars */
+#content browser {
+ margin-right: -14px !important;
+ overflow-y: scroll;
+ overflow-x: hidden;
+}
