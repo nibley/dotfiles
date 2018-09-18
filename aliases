@@ -25,7 +25,7 @@ alias c='chromekill'
 
 alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-alias ksus='killall SystemUIServer'
+alias ksuis='killall SystemUIServer'
 
 alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}" && killall Dock'
 
