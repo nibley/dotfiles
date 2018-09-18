@@ -1,4 +1,4 @@
-. .profile
+source .profile
 
 export SAVEHIST=55555
 
