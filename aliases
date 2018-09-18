@@ -1,3 +1,5 @@
+echo "sourcing .aliases"
+
 alias c='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 
 alias gx='gc -m . && echo && gp'
