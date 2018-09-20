@@ -1,5 +1,8 @@
 # SOFT-LINK TO ~/bin
-# - ?
+# - filename
+ln -s filename ~/bin
+# - extension
+ln -s extension ~/bin
 
 # SOFT-LINK OUTWARDS
 # - ?
