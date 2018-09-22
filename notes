@@ -1,26 +1,11 @@
-# SOFT-LINK TO ~/bin
-# - filename
-ln -s filename ~/bin
-# - extension
-ln -s extension ~/bin
-
 # SOFT-LINK OUTWARDS
-# - ?
+ln -s bin ~
 
 # HARD-LINK OUTWARDS
-# - zshrc
 ln zshrc ~/.zshrc
-# - vimrc
 ln vimrc ~/.vimrc
-# - aliases
 ln aliases ~/.aliases
-# - MAIN.zsh-theme to ~/.oh-my-zsh/custom/themes
 ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
-# - always_lsF to ~/bin/ls
-ln always_lsF ~/bin/ls
-# - find-firefox-def-profile
-ln find-firefox-def-profile ~/bin
-# - kuaa.m3u
 ln kuaa.m3u ~/Documents
 
 # SHOULD BE RUN

@@ -1,0 +1,2 @@
+#! /usr/bin/env bash
+cat ~/Library/Application\ Support/Firefox/profiles.ini | sed -n -e 's/^.*Path=//p' | head -n 1
