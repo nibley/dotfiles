@@ -5,8 +5,7 @@ ln -s filename ~/bin
 ln -s extension ~/bin
 
 # SOFT-LINK OUTWARDS
-# - kuaa.m3u
-ln -s kuaa.m3u ~/Documents
+# - ?
 
 # HARD-LINK OUTWARDS
 # - zshrc
@@ -21,6 +20,8 @@ ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
 ln always_lsF ~/bin/ls
 # - find-firefox-def-profile
 ln find-firefox-def-profile ~/bin
+# - kuaa.m3u
+ln kuaa.m3u ~/Documents
 
 # SHOULD BE RUN
 # - mac-gitignore
@@ -34,4 +35,5 @@ ln find-firefox-def-profile ~/bin
 # - dict of rules for linking onto a machine, and script to execute them
 # - write alias to check if file is already a hardlink to another file
 # - chmod +x on binaries including those that get linked to ~/bin
+# - soft links are having more issues than hard??
 
