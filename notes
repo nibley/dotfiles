@@ -5,7 +5,8 @@ ln -s filename ~/bin
 ln -s extension ~/bin
 
 # SOFT-LINK OUTWARDS
-# - ?
+# - kuaa.m3u
+ln -s kuaa.m3u ~/Documents
 
 # HARD-LINK OUTWARDS
 # - zshrc
