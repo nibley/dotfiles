@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# # # TODO
+
+# restore or no?
+# check existence of $1
+
+show_usage(){
+	cat <<- EOF
+		Usage:
+
+		'setdesktop <directory>'
+		    to show <directory> on the desktop
+
+		'setdesktop'
+		    to restore Desktop_Disabled to just plain Desktop"
+	EOF
+
+	exit 1
+}
+
+cd
+
+if [[ -a Desktop ]]
+then
+	if [[ ! -d Desktop ]]
+	then
+		echo "Error, Desktop is a file"
+		echo
+		show_usage
+	fi
+elif [[ $# -gt 1 ]]
+then
+	show_usage
+elif [[ -a Desktop && ! -L Desktop ]]
+then
+	mv Desktop Desktop_disabled && echo "Moved Desktop to Desktop_disabled" || \
+	(echo "Couldn't move to Desktop to Desktop_disabled. Try doing it yourself."; exit 1)
+elif [[ $# -eq 1 ]]
+then
+	echo "1arg"
+	rm -f Desktop && ln -s "$1" Desktop && killall Finder && exit 0
+elif [[ $# -eq 0 ]]
+then
+	echo "0arg"
+	if [[ -a Desktop_Disabled && -d Desktop_Disabled ]]
+	then
+		read -p "Restore Desktop_Disabled to Desktop position? " -n 1 -r
+		echo
+		if [[ $REPLY =~ ^[Yy]$ ]]
+		then
+		# don't worry, we won't ever get here if Desktop is a real folder
+			sudo rm -f Desktop && mv Desktop_Disabled Desktop && killall Finder && exit 0
+			# TODO permissioning method?
+		fi
+	fi
+fi

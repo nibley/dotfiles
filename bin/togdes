@@ -1,0 +1,5 @@
+#! /bin/bash
+X='com.apple.finder'
+Y='CreateDesktop'
+
+defaults write $X $Y -bool "$( (( $(defaults read $X $Y) )) && echo FALSE || echo TRUE )" && killall Finder

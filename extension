@@ -1,3 +1,0 @@
-#! /usr/bin/env bash
-sed 's/^.*\.//' <(echo "$1")
-# also see filename
