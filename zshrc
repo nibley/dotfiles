@@ -1,21 +1,22 @@
 source .profile
+source .aliases 
 
 export SAVEHIST=55555
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# - # - # - # - #
-
-export PATH="/usr/local/sbin:/usr/local/bin:$PATH"
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/alex/.oh-my-zsh"
+# maybe redo iTerm2 shell integration for zsh
+# export ZLE_REMOVE_SUFFIX_CHARS=""
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="MAIN"
+
+###################
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/alex/.oh-my-zsh"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -101,7 +102,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-#
