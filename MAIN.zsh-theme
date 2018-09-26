@@ -3,8 +3,12 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
+remote="git remote get-url origin"
+"$remote" &> /dev/null
+exitcode=$?
+
 prompt_git() {
-	if [[ $(git remote get-url origin) = "https://github.com/nibley/homedir.git" ]]
+	if [[ exitcode = 0 && $remote = "https://github.com/nibley/homedir.git" ]]
 	then echo ""
 	else echo "$(git_prompt_info)"
 	fi	
