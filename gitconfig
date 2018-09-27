@@ -1,0 +1,25 @@
+[user]
+	name = Alex Nibley
+	email = alexnibley@gmail.com
+[color]
+	ui = auto
+[push]
+	default = simple
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	df = diff
+	dc = diff --cached
+	ls = ls-files
+	
+	#show ignored
+	ign = ls-files -o -i --exclude-standard
+
+[advice]
+	statusHints = false
+[diff]
+	renames = copies
+[core]
+	excludesfile = /Users/alex/.gitignore_default
