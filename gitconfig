@@ -17,6 +17,10 @@
 	#show ignored
 	ign = ls-files -o -i --exclude-standard
 
+	#recommended by people
+	lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
 [advice]
 	statusHints = false
 [diff]
