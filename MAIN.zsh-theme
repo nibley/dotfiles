@@ -8,9 +8,9 @@ remote="git remote get-url origin"
 exitcode=$?
 
 prompt_git() {
-	if [[ exitcode = 0 && $remote = "https://github.com/nibley/homesync.git" ]]
-	then echo ""
-	else echo "$(git_prompt_info)"
+	if [[ exitcode = 0 && $remote != "https://github.com/nibley/homesync.git" ]]
+	then echo "$(git_prompt_info)"
+	else echo ""
 	fi	
 }
 
