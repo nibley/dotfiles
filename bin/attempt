@@ -7,9 +7,14 @@ success="$fg_bold[green]✓$reset_color"
 failure="$fg_bold[red]✗$reset_color"
 
 
-if "$@" 2>/dev/null
+if result=$("$@" 2>&1)
 then
 	echo "$success  \"$@\""
 else
 	echo "$failure  \"$@\""
+
+	if [[ -n $result ]]
+	then
+		echo "     $result\n"
+	fi
 fi
