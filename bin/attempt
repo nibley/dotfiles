@@ -8,23 +8,18 @@ failure="$fg_bold[red]✗$reset_color"
 
 if result=$("$@" 2>&1)
 then
-	echo "$success  \"$@\""
+	echo -n "$success"
 	clean_exit=1
 else
-	echo "$failure  \"$@\""
+	echo -n "$failure"
 fi
+
+echo "  \"$@\""
 
 if [[ -n $result ]]
 then
 	echo -n "     "
-
-	if (( $clean_exit ))
-	then
-		echo -n "$fg[green]"
-	else
-		echo -n "$fg[red]"
-	fi
-
+	echo -n $( (( $clean_exit )) && echo "$fg[green]" || echo "$fg[red]" )
 	echo "$result"
 fi
 
