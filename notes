@@ -1,9 +1,16 @@
 #! /usr/bin/env zsh
 
+# SETUP
+source zsh_color_support
+
 ln_path=$(which ln)
+success="$fg_bold[green]✓$reset_color"
+failure="$fg_bold[red]✗$reset_color"
 
 ln() {
-	$ln_path "$@" 2>/dev/null && echo "| did ln $@" || echo "- didn't(!) ln $@"
+	$ln_path "$@" 2>/dev/null \
+		&& echo "  $success) \"ln $@\"" \
+		|| echo "  $failure) \"ln $@\""
 }
 
 # SOFT-LINK OUTWARDS
