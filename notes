@@ -1,4 +1,10 @@
-#! /usr/bin/env bash
+#! /usr/bin/env zsh
+
+ln_path=$(which ln)
+
+ln() {
+	$ln_path "$@" 2>/dev/null && echo "| did ln $@" || echo "- didn't(!) ln $@"
+}
 
 # SOFT-LINK OUTWARDS
 ln -s bin ~
