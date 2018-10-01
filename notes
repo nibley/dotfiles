@@ -1,8 +1,5 @@
 #! /usr/bin/env zsh
 
-# SETUP
-source "$(dirname $0)/zsh_color_support"
-
 # SOFT-LINK OUTWARDS
 attempt ln -s bin ~
 
