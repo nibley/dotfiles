@@ -3,26 +3,16 @@
 # SETUP
 source "$(dirname $0)/zsh_color_support"
 
-ln_path=$(which ln)
-success="$fg_bold[green]✓$reset_color"
-failure="$fg_bold[red]✗$reset_color"
-
-ln() {
-	$ln_path "$@" 2>/dev/null \
-		&& echo "$success  \"ln $@\"" \
-		|| echo "$failure  \"ln $@\""
-}
-
 # SOFT-LINK OUTWARDS
-ln -s bin ~
+attempt ln -s bin ~
 
 # HARD-LINK OUTWARDS
-ln zshrc ~/.zshrc
-ln vimrc ~/.vimrc
-ln aliases ~/.aliases
-ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
-ln kuaa.m3u ~/Documents
-ln gitconfig ~/.gitconfig
+attempt ln zshrc ~/.zshrc
+attempt ln vimrc ~/.vimrc
+attempt ln aliases ~/.aliases
+attempt ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
+attempt ln kuaa.m3u ~/Documents
+attempt ln gitconfig ~/.gitconfig
 
 # SHOULD BE RUN
 # - mac-gitignore
