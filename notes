@@ -9,8 +9,8 @@ failure="$fg_bold[red]✗$reset_color"
 
 ln() {
 	$ln_path "$@" 2>/dev/null \
-		&& echo "  $success) \"ln $@\"" \
-		|| echo "  $failure) \"ln $@\""
+		&& echo "  $success \"ln $@\"" \
+		|| echo "  $failure \"ln $@\""
 }
 
 # SOFT-LINK OUTWARDS
