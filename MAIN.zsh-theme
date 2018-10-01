@@ -20,7 +20,7 @@ local ret_status="%(?:%{$fg[cyan]%}➜:%{$fg[red]%}➜) "
 
 #
 
-PROMPT='${ret_status}%{$fg_bold[blue]%}$USER%{$reset_color%}%{$fg[cyan]%}@%{$fg_bold[red]%}%1m%{$reset_color%}%{$fg[cyan]%}:%c%{$reset_color%} $(prompt_git)'
+PROMPT='${ret_status}%{$fg_bold[blue]%}$USER%{$reset_color%}%{$fg_bold[red]%}@%1m%{$reset_color%}%{$fg[cyan]%}:%c%{$reset_color%} $(prompt_git)'
 
 # prompt_git
 # git_prompt_info
