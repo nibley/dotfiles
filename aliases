@@ -14,21 +14,21 @@ alias gem-user='gem install --user-install -n~/bin --no-rdoc "$@"'
 alias gx='gc -m . && echo && gp'
 alias gax='gaa && echo; gx && echo; gst'
 
-alias tree='tree -C' 
+alias tree='tree --noreport'
+alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
 
 ###
 ## general
 #
-alias kanye='imgcat ~/Pictures/tenor.gif'
-
-alias cslogin='ssh -Y anibley@ssh.cs.brown.edu'
-
 alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
+
 alias c='chromekill'
 
 alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 alias ksuis='killall SystemUIServer'
+
+alias kanye='imgcat ~/Pictures/tenor.gif'
 
 alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}" && killall Dock'
 
@@ -36,7 +36,9 @@ alias reveal='open -R'
 
 alias audio='open -a "AU Lab"; open -a "Audio MIDI Setup"'
 
+###
 ## screen
+#
 alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend; sleep 0.3; osascript -e "tell application \"iTerm\" to tell current window to hide hotkey window"'
 
 alias displaysleep='echo "Ctrl Shft Pwr"; pmset displaysleepnow'
@@ -47,5 +49,4 @@ alias screensaver='/System/Library/CoreServices/ScreenSaverEngine.app/Contents/M
 ###
 ## not strictly aliases
 #
-
 mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }

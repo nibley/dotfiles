@@ -1,0 +1,3 @@
+-- stops options
+doesn't break if linked under another name (careful with $0)
+
