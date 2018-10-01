@@ -1,3 +1,5 @@
+#! /usr/bin/env bash
+
 # SOFT-LINK OUTWARDS
 ln -s bin ~
 
@@ -17,9 +19,10 @@ ln gitconfig ~/.gitconfig
 # - subl
 
 # MISC. TODO
-# - make a device file that erases the mac/linux distinctions on some useful dirs, like Application support vs .dirs
+# - abstract away some OS dir hierarchy differences
+#   + make a device file that erases the mac/linux distinctions on some useful dirs,
+# 	  like Application support vs .dirs
 # - dict of rules for linking onto a machine, and script to execute them
 # - write alias to check if file is already a hardlink to another file
 # - chmod +x on binaries including those that get linked to ~/bin
 # - soft links are having more issues than hard??
-
