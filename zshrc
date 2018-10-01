@@ -1,5 +1,4 @@
-source .profile
-source .aliases 
+source ~/.profile
 
 export SAVEHIST=55555
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
