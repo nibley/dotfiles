@@ -1,8 +1,20 @@
 #! /usr/bin/env bash
 
-# file case
-inum=$(ls -i "$1" | cut -d " " -f 1)
-find "$2" -depth 1 -type f -inum $inum
+[[ -d "$1" ]] && exit 1
 
-# dir case
-# # TODO
+searchDir=$(cd "$2"; pwd) # expands ., e.g.
+inum=$(ls -i "$1" | cut -d " " -f 1)
+find "$searchDir" -depth 1 -type f -inum $inum
+
+# TODO softlink dir case, softlink file case
+##
+# inum=$(ls -id "$1" | cut -d " " -f 1)
+# cd "$2"
+# # cd ..
+# results=$(find . -depth 1 -type d -inum $inum)
+# [[ -z $results ]] && exit 1;
+
+# while read result;
+# do
+# 	echo "$(pwd)/$(basename $result)"
+# done < <(echo $results)
