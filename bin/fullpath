@@ -1,0 +1,2 @@
+#! /usr/bin/env bash
+echo $(cd $(dirname "$1"); echo "$(pwd)/$(basename "$1")")
