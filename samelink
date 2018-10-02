@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+# file case
+inum=$(ls -i "$1" | cut -d " " -f 1)
+find "$2" -depth 1 -type f -inum $inum
+
+# dir case
+# # TODO
