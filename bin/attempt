@@ -19,7 +19,7 @@ echo "  \"$@\""
 if [[ -n $result ]]
 then
 	echo -n "     "
-	echo -n $( (( $clean_exit )) && echo "$fg[green]" || echo "$fg[red]" )
+	(( $clean_exit )) && echo -n "$fg[green]" || echo -n "$fg[red]"
 	echo "$result"
 fi
 
