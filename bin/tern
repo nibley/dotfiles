@@ -1,0 +1,44 @@
+#! /usr/bin/env bash
+
+# from https://stackoverflow.com/a/35512445/3551020
+
+function show_help()
+{
+  echo ""
+  echo "usage: BOOLEAN VALUE_IF_TRUE VALUE_IF_FALSE {FALSE_VALUE}"
+  echo ""
+  echo "e.g. "
+  echo ""
+  echo "tern 1 YES NO                            => YES"
+  echo "tern 0 YES NO                            => NO"
+  echo "tern "" YES NO                           => NO"
+  echo "tern "ANY STRING THAT ISNT 1" YES NO     => NO"
+  echo "ME=$(tern 0 YES NO)                      => ME contains NO"
+  echo ""
+
+  exit
+}
+
+if [ "$1" == "help" ]
+then
+  show_help
+fi
+if [ -z "$3" ]
+then
+  show_help
+fi
+
+# Set a default value for what is "false" -> 0
+FALSE_VALUE=${4:-0}
+
+function main
+{
+  if [ "$1" == "$FALSE_VALUE" ]; then
+    echo $3
+    exit;
+  fi;
+
+  echo $2
+}
+
+main "$1" "$2" "$3"
