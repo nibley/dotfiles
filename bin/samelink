@@ -3,6 +3,8 @@
 # TODO decide if the input file should show,
 # # currently does for files but not for dirs
 # # (actual d not caught by link -L flag)
+#
+# eliminate . and .. errors
 
 # how to mark hard vs soft links?
 # setting for greater depth than 1
