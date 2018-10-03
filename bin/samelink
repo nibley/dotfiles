@@ -9,29 +9,26 @@
 # how to mark hard vs soft links?
 # setting for greater depth than 1
 
-[[ ! -e "$1" || ! -d "$2" ]] && exit 1
+if [[ ! -e "$1" || ! -d "$2" ]]; then
+	exit 1;
+fi
 
 searchDir=$(cd "$2"; pwd) # expands ., e.g.
-if [[ ! -d "$1" ]]
-then
+if [[ ! -d "$1" ]]; then
 	inum=$(ls -i "$1" | cut -d " " -f 1)
 	findResults=$(find "$searchDir" -depth 1 -type f -inum $inum)
-	for result in findResults
-	do
+	for result in findResults; do
 		echo "hard link: $result"
 	done
 fi
 
 
 fullPath=$(cd $(dirname "$1"); echo "$(pwd)/$(basename "$1")")
-for f in $2/*
-do
+for f in $2/*; do
 	dest=$(readlink "$f")
-	if [[ -L "$f" ]]
-	then
+	if [[ -L "$f" ]]; then
 		resolvedLink=$(cd "$2"; cd $(dirname "$dest"); pwd)/$(basename "$dest")
-		if [[ $fullPath = $resolvedLink ]]
-		then
+		if [[ $fullPath = $resolvedLink ]]; then
 			echo "soft link: $f"
 		fi
 	fi
