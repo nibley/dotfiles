@@ -9,14 +9,10 @@ failure="$fg_bold[red]✗$reset_color"
 result=$("$@" 2>&1)
 exitcode=$?
 
-(( $exitcode )) && (echo -n "$failure") || (echo -n "$success")
+echo -n $(tern $exitcode "$failure" "$success")
 
 echo "  \"$@\""
 
-if [[ -n $result ]]
-then
-	echo -n "     "
-	(( $exitcode )) && echo -n "$fg[red]" || echo -n "$fg[green]"
-	echo "$result"
-	echo -n "$reset_color"
+if [[ -n $result ]]; then
+	echo "     "$(tern $exitcode "$fg[red]" "$fg[green]")"${result}${reset_color}"
 fi

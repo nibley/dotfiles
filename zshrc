@@ -1,8 +1,15 @@
 source ~/.profile
 
-export SAVEHIST=55555
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+if [[ -e "${HOME}/.iterm2_shell_integration.zsh" ]]; then 
+	source "${HOME}/.iterm2_shell_integration.zsh"
+fi
+
+export SAVEHIST=55555
+
+setopt CORRECT
+setopt MAIL_WARNING
 
 # maybe redo iTerm2 shell integration for zsh
 # export ZLE_REMOVE_SUFFIX_CHARS=""
@@ -35,7 +42,7 @@ export ZSH="/Users/alex/.oh-my-zsh"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
