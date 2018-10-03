@@ -17,7 +17,7 @@ searchDir=$(cd "$2"; pwd) # expands ., e.g.
 if [[ ! -d "$1" ]]; then
 	inum=$(ls -i "$1" | cut -d " " -f 1)
 	findResults=$(find "$searchDir" -depth 1 -type f -inum $inum)
-	for result in findResults; do
+	for result in $findResults; do
 		echo "hard link: $result"
 	done
 fi
