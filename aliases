@@ -11,8 +11,10 @@ alias rm='rm -i'
 alias bpython2=/usr/local/bin/bpython
 alias gem-user='gem install --user-install -n~/bin --no-rdoc "$@"'
 
+# git
 alias gx='gc -m . && echo && gp'
 alias gax='gaa && echo; gx && echo; gst'
+alias gsti='gst --ignored=matching "./*"'
 
 alias tree='tree --noreport'
 alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
@@ -35,6 +37,8 @@ alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile
 alias reveal='open -R'
 
 alias audio='open -a "AU Lab"; open -a "Audio MIDI Setup"'
+
+alias listvoices='say -v "?"'
 
 ###
 ## screen
