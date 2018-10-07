@@ -32,7 +32,7 @@ alias ksuis='killall SystemUIServer'
 
 alias kanye='imgcat ~/Pictures/tenor.gif'
 
-alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}" && killall Dock'
+alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}"'
 
 alias reveal='open -R'
 
