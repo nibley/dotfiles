@@ -10,6 +10,7 @@ attempt ln aliases ~/.aliases
 attempt ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
 attempt ln kuaa.m3u ~/Documents
 attempt ln gitconfig ~/.gitconfig
+attempt ln com.apple.dock.plist ~/Library/Preferences
 
 # SHOULD BE RUN
 # - mac-gitignore
