@@ -1,0 +1,20 @@
+#! /usr/bin/env bash
+
+url=$(git remote get-url $(git remote))
+
+git clone --mirror "$url" && \
+mirrorDir="$(basename $url)" && \
+bfg --delete-files "$1" "$mirrorDir" && \
+cd "$mirrorDir" && \
+git reflog expire --expire=now --all && \
+git gc --prune=now --aggressive && \
+git push && \
+cd .. && \
+git clone "$url" && \
+mv .git "$HOME/.Trash" && \
+mv "$url/.git" . && \
+rm -rf "$mirrorDir" && \
+rm -rf "$url" && \
+echo done
+
+# rm -rf $mirrorDir.bgf-report
