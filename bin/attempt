@@ -1,17 +1,20 @@
 #! /usr/bin/env zsh
 
+# echo "$*"
+# echo
+
 autoload colors
 colors
 
 success="$fg_bold[green]✓$reset_color"
 failure="$fg_bold[red]✗$reset_color"
 
-result=$("$@" 2>&1)
+result=$(eval "$@" 2>&1)
 exitcode=$?
 
 echo -n $(tern $exitcode "$failure" "$success")
 
-echo "  \"$@\""
+echo "  $@"
 
 if [[ -n $result ]]; then
 	echo "     "$(tern $exitcode "$fg[red]" "$fg[green]")"${result}${reset_color}"

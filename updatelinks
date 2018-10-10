@@ -1,16 +1,19 @@
 #! /usr/bin/env zsh
 
+# attempt linkup
+attempt linkup -s bin ~
+
 # SOFT-LINK OUTWARDS
-attempt ln -s bin ~
+attempt linkup -s bin ~
 
 # HARD-LINK OUTWARDS
-attempt ln zshrc ~/.zshrc
-attempt ln vimrc ~/.vimrc
-attempt ln aliases ~/.aliases
-attempt ln MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
-attempt ln kuaa.m3u ~/Documents
-attempt ln gitconfig ~/.gitconfig
-attempt ln com.apple.dock.plist ~/Library/Preferences
+attempt linkup zshrc ~/.zshrc
+attempt linkup vimrc ~/.vimrc
+attempt linkup aliases ~/.aliases
+attempt linkup MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
+attempt linkup kuaa.m3u ~/Documents
+attempt linkup gitconfig ~/.gitconfig
+attempt linkup com.apple.dock.plist ~/Library/Preferences
 
 # SHOULD BE RUN
 # - mac-gitignore

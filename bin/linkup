@@ -1,0 +1,27 @@
+#! /usr/bin/env bash
+
+backup="$*"
+# soft="0"
+while getopts ":s" opt; do
+	case ${opt} in
+		s)
+			# soft="1"
+			shift;;
+		esac
+done
+
+if [[ -d "$2" ]]; then
+	checkArg="$2/"$(basename "$1")
+else
+	checkArg="$2"
+fi
+
+if res=$(samelink "$1" "$checkArg"); then
+	exit 0
+fi
+
+if diff "$1" "$2" &>/dev/null; then
+	ln -f "$1" "$2"
+fi
+
+exit 1

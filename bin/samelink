@@ -1,35 +1,42 @@
 #! /usr/bin/env bash
 
-# TODO decide if the input file should show,
-# # currently does for files but not for dirs
-# # (actual d not caught by link -L flag)
-#
-# eliminate . and .. errors
+# TODO eliminate . and .. errors
 
 # how to mark hard vs soft links?
 # setting for greater depth than 1
 
-if [[ ! -e "$1" || ! -d "$2" ]]; then
-	exit 1;
+if [[ ! -e "$1" || ! -e "$2" ]]; then
+	echo 1>&2 "arg doesn't exist"
+	exit 1
+elif [[ "$1" = "$2" ]]; then
+	echo "same file"
+	exit 1
 fi
 
-searchDir=$(cd "$2"; pwd) # expands ., e.g.
-if [[ ! -d "$1" ]]; then
-	inum=$(ls -i "$1" | cut -d " " -f 1)
-	findResults=$(find "$searchDir" -depth 1 -type f -inum $inum)
-	for result in $findResults; do
-		echo "hard link: $result"
-	done
-fi
-
+# TODO: use getopts similar to in updatelink, flags h and s, both or either mode
+# also silent flag?
 
 fullPath=$(cd $(dirname "$1"); echo "$(pwd)/$(basename "$1")")
-for f in $2/*; do
-	dest=$(readlink "$f")
-	if [[ -L "$f" ]]; then
-		resolvedLink=$(cd "$2"; cd $(dirname "$dest"); pwd)/$(basename "$dest")
-		if [[ $fullPath = $resolvedLink ]]; then
-			echo "soft link: $f"
-		fi
+
+# Check for hardlink sameness
+if [[ ! -d "$1" && ! -d "$2" ]]; then
+	inum=$(ls -i "$1" | cut -d " " -f 1)
+	target=$(ls -i "$2" | cut -d " " -f 1)
+	if [[ $inum = $target ]]; then
+		echo "hard link"
+		exit 0
 	fi
-done
+fi
+
+# Check for soft links
+if [[ -L "$2" ]]; then
+	dest=$(readlink "$2")
+	resolvedLink=$(cd $(dirname "$2"); cd $(dirname "$dest"); pwd)/$(basename "$dest")
+	
+	if [[ $fullPath = $resolvedLink ]]; then
+		echo "soft link"
+		exit 0;
+	fi
+fi
+
+exit 1
