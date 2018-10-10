@@ -19,6 +19,9 @@ alias gsti='gst --ignored=matching "./*"'
 alias tree='tree --noreport'
 alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
 
+alias tree='tree --noreport'
+alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
+
 ###
 ## general
 #
@@ -32,7 +35,11 @@ alias ksuis='killall SystemUIServer'
 
 alias kanye='imgcat ~/Pictures/tenor.gif'
 
+<<<<<<< HEAD
+alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}" && killall Dock'
+=======
 alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}"'
+>>>>>>> 70159fa266cc6f5c331031f5298eef310256b186
 
 alias reveal='open -R'
 
