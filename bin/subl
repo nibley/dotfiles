@@ -1,2 +1,2 @@
 #! /bin/bash
-/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -n "$@"
+/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -a "$@"
