@@ -12,10 +12,17 @@ failure="$fg_bold[red]✗$reset_color"
 result=$(eval "$@" 2>&1)
 exitcode=$?
 
-echo -n $(tern $exitcode "$failure" "$success")
+echo -n " "$(tern $exitcode "$failure" "$success")
 
 echo "  $@"
 
 if [[ -n $result ]]; then
-	echo "     "$(tern $exitcode "$fg[red]" "$fg[green]")"${result}${reset_color}"
+	# for line in $result; do
+	# 	echo $i
+	# 	i=$(($i+1))
+	# 	echo "     "$(tern $exitcode "$fg[red]" "$fg[green]")"${line}${reset_color}"
+	# done
+	echo $result | while read line; do
+		echo "     "$(tern $exitcode "$fg[red]" "$fg[green]")"${line}${reset_color}"
+	done
 fi

@@ -6,7 +6,6 @@
 # setting for greater depth than 1
 
 if [[ ! -e "$1" || ! -e "$2" ]]; then
-	echo 1>&2 "arg doesn't exist"
 	exit 1
 elif [[ "$1" = "$2" ]]; then
 	echo "same file"

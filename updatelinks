@@ -1,8 +1,5 @@
 #! /usr/bin/env zsh
 
-# attempt linkup
-attempt linkup -s bin ~
-
 # SOFT-LINK OUTWARDS
 attempt linkup -s bin ~
 

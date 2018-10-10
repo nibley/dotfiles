@@ -17,11 +17,15 @@ else
 fi
 
 if res=$(samelink "$1" "$checkArg"); then
-	exit 0
+	exit 0 # already same link
 fi
 
 if diff "$1" "$2" &>/dev/null; then
 	ln -f "$1" "$2"
+	echo "Linked identical file"
+	exit 0
 fi
+
+ln "$@"
 
 exit 1
