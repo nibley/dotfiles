@@ -27,5 +27,4 @@ if diff "$1" "$2" &>/dev/null; then
 fi
 
 ln "$@"
-
-exit 1
+exit $?
