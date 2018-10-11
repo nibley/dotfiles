@@ -1,0 +1,25 @@
+#! /usr/bin/env bash
+
+# args
+#   1: command to monitor for changes in its result
+# [ 2: command to run when there's a change
+#	   by default, command line and notifications ]
+# [ 3: time in seconds between checks (defaults to 1) ]
+
+while true; do
+	res=$(echo $(eval "$1") | xargs) # tr "\n" "\t"
+	if [[ $res != $oldres ]]; then
+		echo -n "changed"
+		osascript << END
+			display notification "change for \"$1\""
+END
+		[[ -n "$2" ]] && eval "$2"
+	else
+		echo -n "       "
+	fi
+	oldres="$res"
+	
+	echo -ne "\t$res"
+	echo -ne "                                    \r"
+	sleep ${3-1}
+done
