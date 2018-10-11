@@ -7,8 +7,8 @@
 # [ 3: time in seconds between checks (defaults to 1) ]
 
 while true; do
-	res=$(echo $(eval "$1") | xargs) # tr "\n" "\t"
-	if [[ $res != $oldres ]]; then
+	res=$(echo $(eval "$1") | tr "\n" "\t")
+	if [[ $res != ${oldres-$res} ]]; then
 		echo -n "changed"
 		osascript << END
 			display notification "change for \"$1\""
