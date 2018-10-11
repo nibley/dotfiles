@@ -1,0 +1,434 @@
+#!/bin/bash
+
+#-----------------------------------------------------------
+#
+# Quit: quits Mac OS X applications politely
+#
+# Written by Jon Stovell, July 11, 2009
+# Last updated on Sept 17, 2015
+#
+#-----------------------------------------------------------
+
+#-----------------------------------------------------------
+# This script takes one or more application names as
+# arguments, and uses osascript to tell each one to quit.
+# Unlike kill and killall, this allows applications to save
+# files and perform any necessary operations before exiting.
+#
+# This script is not case sensitive.
+#
+# Note: Application names are NOT process names! The
+# application name is the name that Script Editor uses.
+# Often the process name and the application name are
+# identical, but not always.
+#-----------------------------------------------------------
+
+usage()
+{
+	echo "Usage: $(basename "$0") [-a] [-h] [-p] [-s|n] [-v] <application names>"
+	echo
+	echo "Arguments are the names of one or more applications, or \"all\""
+	echo "to quit all foreground applications except Finder and Terminal."
+	echo "Arguments are not case sensitive."
+	echo "Arguments with spaces should be quoted."
+	echo
+	echo "Options:"
+	echo
+	echo " -a	Match argument string with any of the application's name, "
+	echo "	displayed name, short name, or title. E.g.: \`quit \"microsoft word\"\` "
+	echo "	and \`quit -a word\` will both quit Microsoft Word, because"
+	echo "	the app calls itself \"Word\" in the menu bar."
+	echo
+	echo " -h	Display this help message."
+	echo
+	echo " -p	Use partial matches (e.g. \"edit\" for TextEdit)."
+	echo "	Prompts for confirmation."
+	echo
+	echo " -s	Attempt to save modified files when quitting."
+	echo "	Overrides any previous -n option."
+	echo
+	echo " -n	Do not attempt to save modified files when quitting."
+	echo "	Overrides any previous -s option."
+	echo
+	echo " -v	Be verbose."
+	echo
+	echo "If neither the -s or -n options are specified, $(basename "$0") will try"
+	echo "to detemine if any documents require saving, and if necessary"
+	echo "will ask the user whether to save or not. Applications that support"
+	echo "OS X's autosave feature will always save on exit unless the -n option"
+	echo "is used to explicitly tell them not to."
+}
+
+processApp()
+{
+	setShouldQuit
+	if $shouldQuit
+	then
+		checkIfScriptable
+		checkIfBackground
+		setSaveAction
+		tellToQuit
+	fi
+}
+
+tellToQuit()
+{
+	runningApps=$(osascript -e "tell application \"System Events\" to count (application processes whose name is \"$appName\")")
+	
+	osascript -e "ignoring application responses" -e "tell application \"$appName\" to quit $saveAction" -e "end ignoring"
+		
+	if $shouldBeVerbose || ! $isBackground
+	then			
+		sleepInterval=0.5
+		floor=2
+		ceiling=12
+		waitCount=0
+		delayExplanationShown=false
+
+		until [[ $(osascript -e "tell application \"System Events\" to count (application processes whose name is \"$appName\")") -lt $runningApps || $waitCount -eq $ceiling ]]
+		do
+			if [[ "$waitCount" -eq "$floor" ]]
+			then
+				if [[ $delayExplanationShown == false ]]
+				then
+					if [[ $scriptable == false ]]
+					then
+						echo "$appName does not respond to standard scripting terminology." 1>&2
+						echo "If it has unsaved changes, it may not quit." 1>&2
+						delayExplanationShown=true
+					elif [[ $hasNewDocs == true && $guiScriptingEnabled == false ]]
+					then
+						echo 'Access for assistive devices is disabled.' 1>&2
+						echo 'Saving untitled documents will not work.' 1>&2
+						delayExplanationShown=true
+					fi
+
+					if [[ $saveAction == "saving yes" ]] && $guiScriptingEnabled
+					then
+						saveUntitled
+						waitCount=0
+					fi
+				elif $shouldBeVerbose 
+				then
+					printf "Quitting $appName: " 1>&2
+				fi
+			fi
+			
+			sleep $sleepInterval
+
+			waitCount=$(( $waitCount + 1 ))			
+			
+			if [[ "$waitCount" -eq "$ceiling" ]]
+			then
+				printf '.' 1>&2
+				sleep $sleepInterval
+				echo 1>&2; echo  "$appName has not quit. Give up?" 1>&2
+				read -n 1 -p "(y/n): "; echo 1>&2
+				if [[ $REPLY != y ]]; then waitCount=$floor; fi
+			
+			elif [[ "$waitCount" -gt "$floor" ]]
+			then
+				printf '.' 1>&2
+			fi
+		done
+		if [[ $waitCount -gt $floor && $waitCount -ne $ceiling ]]; then echo 1>&2; fi
+	fi
+	
+	if $shouldBeVerbose || $delayExplanationShown && [[ $(osascript -e "tell application \"System Events\" to count (application processes whose name is \"$appName\")") -lt $runningApps ]]
+	then
+		echo "$appName has quit." 1>&2
+	fi
+}
+
+saveUntitled()
+{
+	suffix=''
+	numUntitled=$(ls ~/Desktop/Untitled* 2>/dev/null | grep -c Untitled)
+	if [[ $numUntitled -gt 0 ]]
+	then
+		suffix="$((numUntitled+1))"
+		while [[ -e ~/Desktop/"Untitled$suffix.*" ]]
+		do
+			suffix="$((suffix+1))"
+		done
+		suffix=" $suffix"
+	fi
+	
+	newdocs=$(osascript -e "on run" -e "set appName to \"$appName\"" -e "set suffix to \"$suffix\"" -e "try" -e "set filePath to POSIX path of (path to desktop folder)" -e "set newdocs to 0" -e "tell application appName to activate" -e "delay 1" -e "tell application \"System Events\"" -e "set targetapp to item 1 of ((first application process whose name is appName) as list)" -e "set thewindows to every window of targetapp" -e "set targetwindow to a reference to the targetapp's (first window whose role description is \"standard window\")" -e "repeat while (targetwindow exists) and ((count sheets of targetwindow) > 0)" -e "set targetsheet to front sheet of targetwindow" -e "set value of targetsheet's first text field whose focused is true to \"Untitled\" & suffix" -e "get name of every button of targetsheet" -e "if result contains \"Save…\" then" -e "set frontmost of targetapp to true" -e "click button \"Save…\" of targetsheet" -e "delay 1" -e "else if result contains \"Save\" and result contains \"Cancel\" and (result contains \"Don't Save\" or result contains \"Don't Save\") then" -e "set frontmost of targetapp to true" -e "click button \"Save\" of targetsheet" -e "delay 1" -e "else if result contains \"Save\" then" -e "set frontmost of targetapp to true" -e "delay 0.1" -e "tell targetsheet to keystroke \"g\" using {command down, shift down}" -e "delay 0.1" -e "set navsheet to sheet 1 of targetsheet" -e "try" -e "set value of text field 1 of navsheet to filePath" -e "delay 0.5" -e "click button \"Go\" of navsheet" -e "on error theError" -e "keystroke filePath" -e "delay 1" -e "keystroke return" -e "end try" -e "click button \"Save\" of targetsheet" -e "set newdocs to newdocs + 1" -e "else" -e "exit repeat" -e "end if" -e "delay 0.5" -e "end repeat" -e "end tell" -e "end try" -e "return newdocs" -e "end run" -e "on findReplace(findText, replaceText, sourceText)" -e "set ASTID to AppleScript's text item delimiters" -e "set AppleScript's text item delimiters to findText" -e "set sourceText to text items of sourceText" -e "set AppleScript's text item delimiters to replaceText" -e "set sourceText to sourceText as text" -e "set AppleScript's text item delimiters to ASTID" -e "return sourceText" -e "end findReplace")
+	if [[ -n $newdocs && $newdocs -gt 0 ]]; then echo "$newdocs new file(s) have been saved to the desktop." 1>&2; fi
+}
+
+checkIfScriptable()
+{
+	scriptable=$(osascript -e "tell application \"System Events\" to return has scripting terminology of first application process whose name is \"$appName\"")
+}
+
+checkIfBackground()
+{
+	isBackground=$(osascript -e "tell application \"System Events\" to return background only of first application process whose name is \"$appName\"")
+}
+
+buildAppNameArray()
+{
+	appName="$(echo "$appName" | sed -e 's/, /,/g')"
+	OLD_IFS="$IFS"
+	IFS=','
+	appNames=($appName)
+	IFS=$'\n'
+	appNames=($(printf '%s\n' "${appNames[@]}" | sort))
+	IFS="$OLD_IFS"
+}
+
+checkForDuplicates()
+{
+	OLD_IFS="$IFS"
+	IFS=$'\n'
+	duplicateAppNames=($(printf '%s\n' ${appNames[@]} | uniq -d))
+	IFS="$OLD_IFS"
+	duplicateHandlineOptions=('All' 'One (at random)')
+	
+	shouldQuitDuplicates=false
+	if [[ " ${duplicateAppNames[@]} " =~ " ${appName} " ]]
+	then
+		echo "Multiple instances of $appName are running." 1>&2
+		echo "Quit all running instances, or just one? (Press Ctrl-C to cancel)" 1>&2
+		select shouldQuitDuplicates in "${duplicateHandlineOptions[@]}"
+		do
+			if [[ $shouldQuitDuplicates == "" ]]
+			then
+				echo "Please select by number." 1>&2
+			else
+				break
+			fi
+		done
+		if [[ $shouldQuitDuplicates == 'All' ]]
+		then
+			shouldQuitDuplicates=true
+		else
+			shouldQuitDuplicates=false
+		fi
+	fi
+}
+
+setSaveAction()
+{
+	if [[ -z $saveAction ]]
+	then
+		checkForModifiedDocuments
+
+		if [[ $numModifiedDocs -ge 1 ]] || [[ -z $numModifiedDocs && $scriptable == true ]]
+		then
+			promptForSaveAction
+		elif [[ $closeOnQuit == true && $numDocs -gt 0 && $numModifiedDocs -eq 0 && $hasNewDocs == false ]]
+		then
+			# This will be the case if versioning is enabled (i.e. on OS X 10.7+), the
+			# user has set the option in System Preferences to not restore windows when an
+			# app reopens, there are documents open, but either none are new or else the new
+			# documents have been automatically saved to iCloud or some other temporary
+			# folder rather than only existing in memory until first saved. In this
+			# scenario, the file is always already saved no matter what, so quitting
+			# without saving a new copy to the Desktop is both safe and correct.
+			saveAction="saving no"
+		fi
+	fi
+}
+
+checkForModifiedDocuments()
+{
+	if [[ $isBackground == true ]]
+	then
+		# Background applications are by definition not document-based
+		numDocs=0
+		numModifiedDocs=0
+		hasNewDocs=false
+	else
+		numDocs=$(osascript -e "try" -e "tell application \"$appName\" to count (get its documents)" -e "on error" -e "return 0" -e "end try")
+		
+		# numModifiedDocs will be an integer. It will be empty if there was an error.
+		numModifiedDocs=$(osascript -e "try" -e "tell application \"$appName\" to count (get its documents whose modified is true)" -e "on error" -e "try" -e "tell application \"$appName\" to count (get its documents whose saved is false)" -e "end try" -e "end try")
+		
+		hasNewDocs=$(osascript -e "set hasNewDocs to false" -e "try" -e "tell application \"$appName\" to set docpaths to path of its documents" -e "repeat with p in docpaths" -e "if p starts with \"/\" then" -e "set p to POSIX file p" -e "end if" -e "try" -e "get p as alias" -e "on error" -e "set hasNewDocs to true" -e "exit repeat" -e "end try" -e "end repeat" -e "end try" -e "return hasNewDocs")
+	fi
+}
+
+promptForApp()
+{	
+	OLD_IFS="$IFS"
+	IFS=$'\n'
+	uniqueAppNames=($(printf '%s\n' "${appNames[@]}" | uniq))
+	IFS="$OLD_IFS"
+	
+	if [[ ${#uniqueAppNames[@]} -gt 1 ]]
+	then
+		echo "\"$arg\" matches multiple applications." 1>&2
+		echo "Choose the application to quit (Press Ctrl-C to cancel):"  1>&2
+		select appName in "${uniqueAppNames[@]}"
+		do
+			if [[ $appName == "" ]]
+			then
+				echo "Please select by number." 1>&2
+			else
+				break
+			fi
+		done
+	else
+		appName="${uniqueAppNames[0]}"
+	fi
+}
+
+setShouldQuit()
+{
+	isEssential=$(osascript -e 'try' -e "tell application \"System Events\" to set a to application file of first application process whose name is \"$appName\"" -e 'set p to POSIX path of a' -e 'if p starts with "/System/" or (p starts with "/usr/" and p does not start with "/usr/local/") or p starts with "/bin/" or p starts with "/sbin/" then' -e 'return true' -e 'else' -e 'return false' -e 'end if' -e 'on error' -e 'return false' -e 'end try')
+	
+	if $isEssential
+	then
+		echo "$appName is a core component of OS X. Quitting it may have detrimental results." 1>&2
+		promptForConfirmation
+	else
+		shouldQuit=true
+	fi
+}
+
+promptForConfirmation()
+{
+	read -n 1 -p "Are you sure you want to tell $appName to quit? (y/n): "; echo 1>&2
+
+	if [[ -n $REPLY && $REPLY == y ]]
+	then
+		shouldQuit=true
+	elif [[ -n $REPLY && $REPLY == n ]]
+	then
+		shouldQuit=false
+	else
+		echo "Invalid response."  1>&2
+		promptForConfirmation
+	fi
+}
+
+promptForSaveAction()
+{	
+	if [[ $numModifiedDocs -gt 1 ]]
+	then
+		echo "Save changes to $numModifiedDocs modified documents in $appName? (Press Ctrl-C to cancel)" 1>&2
+		read -n 1 -p "(y/n): "; echo 1>&2
+	elif [[ $numModifiedDocs -eq 1 ]]
+	then
+		echo "Save changes to $numModifiedDocs modified document in $appName? (Press Ctrl-C to cancel)" 1>&2
+		read -n 1 -p "(y/n): "; echo 1>&2
+	elif [[ -z $numModifiedDocs ]]
+	then
+		echo -e "Save changes to modified documents (if any) in $appName? (Press Ctrl-C to cancel)" 1>&2
+		read -n 1 -p "(y/n): "; echo 1>&2
+	fi
+
+	if [[ -n $REPLY && $REPLY == y ]]
+	then
+		saveAction="saving yes"
+	elif [[ -n $REPLY && $REPLY == n ]]
+	then
+		saveAction="saving no"
+	elif [[ -n $REPLY ]]
+	then
+		echo "Invalid response. Aborted."  1>&2
+		exit 64
+	else
+		exit
+	fi
+}
+
+searchAll="false"
+is_contains="is"
+shouldBeVerbose=false
+saveAction=""
+guiScriptingEnabled=$(osascript -e "tell application \"System Events\" to return UI elements enabled")
+osv="$(sw_vers -productVersion)"
+if [[ $(echo "$osv" | cut -d. -f1) -ge 10 && $(echo "$osv" | cut -d. -f2) -ge 7 && $(defaults read .GlobalPreferences NSQuitAlwaysKeepsWindows 2>/dev/null) -ne 1 ]]
+then
+	closeOnQuit=true
+else
+	closeOnQuit=false
+fi
+
+while getopts "ahpnsv" opt
+do
+	case $opt in
+	a) searchAll="true" ;;
+	h) usage ; exit;;
+	p) is_contains="contains" ;;
+	n) saveAction="saving no" ;;
+	s) saveAction="saving yes" ;;
+	v) shouldBeVerbose=true ;;
+	[?]) usage ; exit 65;;
+	esac
+
+	shift $(($OPTIND - 1)) # Decrements the argument pointer so it points to next argument. $1 now references the first non option item supplied on the command-line if one exists.
+done
+
+if [ -z "$1" ]; then usage; exit 65; fi
+
+if [[ $1 == "all" ]]
+then
+	appName=$(osascript -e "tell application \"System Events\" to return name of every application process whose (background only is false and name is not \"Finder\" and name is not \"Terminal\" and name is not \"iTerm\" and name is not \"Path Finder\")")
+	
+	buildAppNameArray
+	
+	for appName in "${appNames[@]}"
+	do
+		tempSaveAction=$saveAction
+		processApp
+		saveAction=$tempSaveAction
+	done
+
+else
+	for arg in "$@"
+	do
+		if [[ $searchAll == "true" && $is_contains == "contains" ]]
+		then
+			appName=$(osascript -e "tell application \"System Events\" to return name of every application process whose (displayed name $is_contains \"$arg\" or name $is_contains \"$arg\" or short name $is_contains \"$arg\" or title $is_contains \"$arg\") and (background only is false and name is not \"Finder\" and name is not \"Terminal\" and name is not \"iTerm\" and name is not \"Path Finder\")")
+		elif [[ $searchAll == "true" ]]
+		then
+			appName=$(osascript -e "tell application \"System Events\" to return name of every application process whose (displayed name $is_contains \"$arg\" or name $is_contains \"$arg\" or short name $is_contains \"$arg\" or title $is_contains \"$arg\")")
+		elif [[ $is_contains == "contains" ]]
+		then
+			appName=$(osascript -e "tell application \"System Events\" to return name of every application process whose (displayed name $is_contains \"$arg\" and background only is false and name is not \"Finder\" and name is not \"Terminal\" and name is not \"iTerm\" and name is not \"Path Finder\")")
+		else
+			appName=$(osascript -e "tell application \"System Events\" to return name of every application process whose displayed name $is_contains \"$arg\"")
+		fi
+		
+		buildAppNameArray
+
+		if [[ ${#appNames[@]} -eq 1 ]] # found 1 matching application
+		then
+			if [[ $is_contains == is ]]
+			then
+				appName="${appNames[0]}"
+				processApp
+			else
+				promptForApp
+				processApp
+			fi
+
+		elif [[ ${#appNames[@]} -eq 0 ]] # found no matching application
+		then
+			echo "No running application matches \"$arg\"" 1>&2
+
+		elif [[ ${#appNames[@]} -gt 1 ]] # found >1 matching applications.
+		then
+			promptForApp
+			checkForDuplicates
+			
+			allDone=false
+			until $allDone
+			do
+				processApp
+		
+				if $shouldQuitDuplicates && [[ $(osascript -e "tell application \"System Events\" to count (application processes whose name is \"$appName\")") -ne 0 ]]
+				then
+					allDone=false
+				else
+					allDone=true
+				fi
+			done
+		fi
+	done
+fi
