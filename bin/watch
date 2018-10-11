@@ -6,6 +6,15 @@
 #	   by default, command line and notifications ]
 # [ 3: time in seconds between checks (defaults to 1) ]
 
+# TODO
+#######
+# don't sleep any extra to repaint the "changed"
+# show the command when not showing "changed"
+	# may need subtraction
+# multiple lines?
+	# currently using echo as $2 is interesting
+
+
 echo $(eval "$1") | tr "\n" "\t"
 while true; do
 	res=$(echo $(eval "$1") | tr "\n" "\t")
@@ -15,22 +24,14 @@ while true; do
 		echo -ne "\r       "
 		echo -ne "\t$res"
 
-		# echo -n "                       "
-		# echo -ne "\033[6n"            # ask the terminal for the position
-		# read -s -d\[ garbage          # discard the first part of the response
-		# read -s -d R foo              # store the position in bash variable 'foo'
-		# echo -n "Current position: "
-		# echo "$foo"
-
+		# clear the whole line
 		echo -ne "\033[6n"
 		read -s -d ";" garbage
 		read -s -d R col
-		
 		yes " " | head -n $(( $(tput cols)-$col )) | tr -d "\n"
-		#seq $col $(tput cols)
 		
 		osascript << END
-			display notification "change for \"$1\""
+			display notification "change for \"$1\" \"$res\""
 END
 		[[ -n "$2" ]] && eval "$2"
 	fi
