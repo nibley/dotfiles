@@ -16,7 +16,10 @@ else
 	checkArg="$2"
 fi
 
+# TODO reconsider checkArg system
+
 if res=$(samelink "$1" "$checkArg"); then
+	# echo "$1 already linked to $2"
 	exit 0 # already same link
 fi
 
@@ -26,5 +29,5 @@ if diff "$1" "$2" &>/dev/null; then
 	exit 0
 fi
 
-ln "$@"
+attempt ln "$backup"
 exit $?
