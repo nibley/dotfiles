@@ -6,20 +6,34 @@
 #	   by default, command line and notifications ]
 # [ 3: time in seconds between checks (defaults to 1) ]
 
+echo $(eval "$1") | tr "\n" "\t"
 while true; do
 	res=$(echo $(eval "$1") | tr "\n" "\t")
 	if [[ $res != ${oldres-$res} ]]; then
-		echo -n "changed"
+		echo -ne "\rchanged"
+		sleep 0.3
+		echo -ne "\r       "
+		echo -ne "\t$res"
+
+		# echo -n "                       "
+		# echo -ne "\033[6n"            # ask the terminal for the position
+		# read -s -d\[ garbage          # discard the first part of the response
+		# read -s -d R foo              # store the position in bash variable 'foo'
+		# echo -n "Current position: "
+		# echo "$foo"
+
+		echo -ne "\033[6n"
+		read -s -d ";" garbage
+		read -s -d R col
+		
+		yes " " | head -n $(( $(tput cols)-$col )) | tr -d "\n"
+		#seq $col $(tput cols)
+		
 		osascript << END
 			display notification "change for \"$1\""
 END
 		[[ -n "$2" ]] && eval "$2"
-	else
-		echo -n "       "
 	fi
 	oldres="$res"
-	
-	echo -ne "\t$res"
-	echo -ne "                                    \r"
 	sleep ${3-1}
 done
