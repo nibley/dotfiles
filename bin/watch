@@ -15,7 +15,8 @@
 	# currently using echo as $2 is interesting
 
 
-echo $(eval "$1") | tr "\n" "\t"
+echo -ne "       \t"
+echo -n $(eval "$1") | tr "\n" "\t"
 while true; do
 	res=$(echo $(eval "$1") | tr "\n" "\t")
 	if [[ $res != ${oldres-$res} ]]; then
