@@ -18,6 +18,7 @@ alias gsti='gst --ignored=matching "./*"'
 
 alias tree='tree --noreport'
 alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
+alias dirsize='du -sh'
 
 ###
 ## general
