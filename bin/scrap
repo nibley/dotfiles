@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+SCRAPSDIR="$HOME/sync/scraps"
+touch "$SCRAPSDIR/$(tr " " _ <<< $@)"
