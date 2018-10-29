@@ -1,0 +1,2 @@
+# TODO
+# pgrep -i trello | xargs kill -CONT
