@@ -4,6 +4,7 @@
 linkup -s bin ~
 
 # HARD-LINK OUTWARDS
+linkup profile ~/.profile
 linkup zshrc ~/.zshrc
 linkup vimrc ~/.vimrc
 linkup aliases ~/.aliases

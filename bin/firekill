@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+#TODO
+# options for orange, dev, or both
+# -p for print not kill
