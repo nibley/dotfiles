@@ -27,7 +27,8 @@ alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v exten
 
 alias c='chromekill'
 
-alias firekill='pgrep -P $(pgrep firefox) | xargs kill -9'
+# TODO use a script with options
+alias firekill='pgrep firefox | xargs -n1 pgrep -P | xargs kill -9'
 
 alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
