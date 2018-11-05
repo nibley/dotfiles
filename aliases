@@ -24,12 +24,10 @@ alias dirsize='du -sh'
 ## general
 #
 alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
-
 alias c='chromekill'
-
 # TODO use a script with options
 alias firekill='pgrep firefox | xargs -n1 pgrep -P | xargs kill -9'
-
+alias f=firekill
 alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 alias ksuis='killall SystemUIServer'
