@@ -13,6 +13,9 @@ linkup kuaa.m3u ~/Documents
 linkup gitconfig ~/.gitconfig
 linkup com.apple.dock.plist ~/Library/Preferences
 
+# OTHER
+[[ -e ~/.hushlogin ]] || touch ~/.hushlogin
+
 # SHOULD BE RUN
 # - mac-gitignore
 # TODO before running make reusable "done" flag system and create board for other related features after that

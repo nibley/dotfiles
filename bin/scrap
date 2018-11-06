@@ -1,4 +1,6 @@
 #! /usr/bin/env bash
 
+#TODO flag for location (can hinge on flag instead of trying to infer $1 type)
+
 SCRAPSDIR="$HOME/sync/scraps"
 touch "$SCRAPSDIR/$(tr " " _ <<< $@)"
