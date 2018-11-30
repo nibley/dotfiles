@@ -8,6 +8,7 @@
 
 # TODO
 #######
+# don't crap out when backgrounded
 # don't sleep any extra to repaint the "changed"
 # show the command when not showing "changed"
 	# may need subtraction
