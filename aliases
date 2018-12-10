@@ -45,6 +45,18 @@ alias audio='open -a "AU Lab"; open -a "Audio MIDI Setup"'
 alias listvoices='say -v "?"'
 
 ###
+## sound
+#
+out(){
+	if [[ "$(audiodevice output)" =~ "Soundflower" ]]; then #startswith
+		audiodevice output internal
+	else
+		audiodevice output "Soundflower (2ch)"
+	fi
+	echo "Changed audio out to $(audiodevice output)"
+}
+
+###
 ## screen
 #
 alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend; sleep 0.3; osascript -e "tell application \"iTerm\" to tell current window to hide hotkey window"'

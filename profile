@@ -9,3 +9,5 @@ export CLICOLOR=1
 
 source ~/.aliases 
 source ~/.aliases.private
+
+stty icrnl # turn carriage returns into newlines
