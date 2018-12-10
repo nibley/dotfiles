@@ -31,3 +31,4 @@ linkup com.apple.dock.plist ~/Library/Preferences
 # - write alias to check if file is already a hardlink to another file
 # - chmod +x on binaries including those that get linked to ~/bin
 # - soft links are having more issues than hard??
+# 	- actually soft may be better than hard for e.g. aliases, vim breaks inodes

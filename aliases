@@ -47,6 +47,7 @@ alias listvoices='say -v "?"'
 ###
 ## sound
 #
+alias ad='audiodevice'
 out(){
 	if [[ "$(audiodevice output)" =~ "Soundflower" ]]; then #startswith
 		audiodevice output internal
