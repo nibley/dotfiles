@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
 #TODO flag for location (can hinge on flag instead of trying to infer $1 type)
+#TODO look into quote parsing of accidental below, would inner double quotes work??
+ # touch "$SCRAPSDIR/$(tr " " _ <<< $@)"
 
 SCRAPSDIR="$HOME/sync/scraps"
-touch "$SCRAPSDIR/$(tr " " _ <<< $@)"
+touch "$SCRAPSDIR/$(tr ' ' _ <<< $@)"
