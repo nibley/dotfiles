@@ -48,14 +48,8 @@ alias listvoices='say -v "?"'
 ## sound
 #
 alias ad='audiodevice'
-out(){
-	if [[ "$(audiodevice output)" =~ "Soundflower" ]]; then #startswith
-		audiodevice output internal
-	else
-		audiodevice output "Soundflower (2ch)"
-	fi
-	echo "Changed audio out to $(audiodevice output)"
-}
+
+alias out='switchsound'
 
 ###
 ## screen

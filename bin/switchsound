@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+#TODO when switching to sf, check for blowout then max out internal, maybe delayed
+
+out(){
+	if [[ "$(audiodevice output)" =~ "Soundflower" ]]; then #startswith
+		audiodevice output internal
+	else
+		audiodevice output "Soundflower (2ch)"
+	fi
+	echo "Changed audio out to $(audiodevice output)"
+}
