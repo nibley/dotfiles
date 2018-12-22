@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+
+for name in "$@"; do
+	pids=$(pgrep -x $name)
+	echo $name
+	for pid in "$pids"; do
+
+		kill -CONT $pid \
+			&& echo "continued $pid" \
+			|| echo "couldn't continue $pid"
+
+		pgrep -P $pid | while read -r subpid; do
+			kill -CONT $subpid \
+				&& echo "\tcontinued $subpid" \
+				|| echo "\tcouldn't continue $subpid"	
+		done
+	done
+	echo
+done

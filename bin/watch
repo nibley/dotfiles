@@ -8,7 +8,6 @@
 
 # TODO
 #######
-# don't crap out when backgrounded
 # don't sleep any extra to repaint the "changed"
 # show the command when not showing "changed"
 	# may need subtraction
@@ -21,16 +20,19 @@ echo -n $(eval "$1") | tr "\n" "\t"
 while true; do
 	res=$(echo $(eval "$1") | tr "\n" "\t")
 	if [[ $res != ${oldres-$res} ]]; then
-		echo -ne "\rchanged"
-		sleep 0.3
-		echo -ne "\r       "
-		echo -ne "\t$res"
 
-		# clear the whole line
-		echo -ne "\033[6n"
-		read -s -d ";" garbage
-		read -s -d R col
-		yes " " | head -n $(( $(tput cols)-$col )) | tr -d "\n"
+		if [[ "$(ps -o state= $$)" == *"+"* ]]; then
+			echo -ne "\rchanged"
+			sleep 0.3
+			echo -ne "\r       "
+			echo -ne "\t$res"
+
+			# clear the whole line
+			echo -ne "\033[6n"
+			read -s -d ";" garbage
+			read -s -d R col
+			yes " " | head -n $(( $(tput cols)-$col )) | tr -d "\n"
+		fi
 		
 		osascript << END
 			display notification "change for \"$1\" \"$res\""

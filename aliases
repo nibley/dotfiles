@@ -40,13 +40,13 @@ alias reveal='open -R'
 
 alias trash='xargs -I % -n 1 mv % ~/.Trash <<< '
 
-alias audio='open -a "AU Lab"; open -a "Audio MIDI Setup"'
-
 alias listvoices='say -v "?"'
 
 ###
 ## sound
 #
+alias audio='open -a "AU Lab"; open -a "Audio MIDI Setup"'
+
 alias ad='audiodevice'
 
 alias out='switchsound'
