@@ -22,7 +22,7 @@ ZSH_THEME="MAIN"
 ###################
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/alex/.oh-my-zsh"
+export ZSH="~/.oh-my-zsh"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
