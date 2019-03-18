@@ -10,4 +10,7 @@ export CLICOLOR=1
 source ~/.aliases 
 source ~/.aliases.private
 
+#productivity
+open ~/face.txt
+
 stty icrnl # turn carriage returns into newlines
