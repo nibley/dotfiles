@@ -13,7 +13,7 @@ alias gem-user='gem install --user-install -n~/bin --no-rdoc "$@"'
 
 # git
 alias gx='gc -m . && echo && gp'
-alias gax='gaa && echo; gx && echo; gst'
+alias gax='gaa && echo && gx && echo; gst'
 alias gsti='gst --ignored=matching "./*"'
 
 alias tree='tree --noreport'
