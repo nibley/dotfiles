@@ -2,6 +2,7 @@
 
 # SOFT-LINK OUTWARDS
 linkup -s bin ~
+linkup -s LoginScripts.Mine.plist ~/Library/LaunchAgents
 
 # HARD-LINK OUTWARDS
 linkup profile ~/.profile
