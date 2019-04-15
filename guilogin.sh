@@ -2,4 +2,4 @@
 eval "$EDITOR $HOME/face.txt"
 
 # launchctl command is
-# launchctl load ~/Library/LaunchAgents/LoginScripts.Test.plist
+# launchctl load ~/Library/LaunchAgents/LoginScripts.Mine.plist
