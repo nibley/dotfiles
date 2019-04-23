@@ -1,2 +1,6 @@
 linkup -s not done
-alert doesn't work
+add ~/Library/Application Support/Quicksilver/Templates
+
+infrastructure
+===
+discriminate based on OS
