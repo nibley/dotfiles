@@ -38,6 +38,7 @@ alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile
 alias smalldockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"small-spacer-tile\";}"'
 
 alias reveal='open -R'
+alias quicklook='qlmanage -p'
 
 alias trash='xargs -I % -n 1 mv % ~/.Trash <<< '
 

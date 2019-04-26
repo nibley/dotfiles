@@ -1,5 +1,6 @@
 linkup -s not done
 add ~/Library/Application Support/Quicksilver/Templates
+editor-opening launchd agent not working
 
 infrastructure
 ===
