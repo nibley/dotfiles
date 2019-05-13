@@ -11,6 +11,9 @@ alias rm='rm -i'
 alias bpython2=/usr/local/bin/bpython
 alias gem-user='gem install --user-install -n~/bin --no-rdoc "$@"'
 
+# networking
+alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
+
 # git
 alias gx='gc -m . && echo && gp'
 alias gax='gaa && echo && gx && echo; gst'
