@@ -6,6 +6,7 @@
 
 # HARD-LINK OUTWARDS
 linkup profile ~/.profile
+linkup profile_afterzsh ~/.profile_afterzsh
 linkup zshrc ~/.zshrc
 linkup vimrc ~/.vimrc
 linkup aliases ~/.aliases

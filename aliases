@@ -11,6 +11,11 @@ alias rm='rm -i'
 alias bpython2=/usr/local/bin/bpython
 alias gem-user='gem install --user-install -n~/bin --no-rdoc "$@"'
 
+alias commands='echo $PATH | tr ":" "\n" | while read adir; do ls $adir 2>/dev/null | while read afile; do echo $adir/$afile; done; done'
+alias tree='tree --noreport'
+alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
+alias dirsize='du -sh'
+
 # networking
 alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
 
@@ -18,10 +23,6 @@ alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias gx='gc -m . && echo && gp'
 alias gax='gaa && echo && gx && echo; gst'
 alias gsti='gst --ignored=matching "./*"'
-
-alias tree='tree --noreport'
-alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
-alias dirsize='du -sh'
 
 ###
 ## general
