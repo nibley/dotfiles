@@ -1,1 +1,2 @@
+echo 'sourcing .profile_afterzsh
 env | grep -q '^LESS=' && export LESS="${LESS}i" || export LESS="-i"
