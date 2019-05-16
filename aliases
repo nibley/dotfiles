@@ -71,3 +71,7 @@ alias screensaver='/System/Library/CoreServices/ScreenSaverEngine.app/Contents/M
 ## not strictly aliases
 #
 mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }
+duck () { command duck 2> >(grep -v NSCFString) "$@" \
+	&& alert 'ftp succeeded' \
+	|| alert 'ftp failed' }
+	
