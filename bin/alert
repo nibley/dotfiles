@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 
-if which growlnotify &> /dev/null; then
+if osascript -e "display notification \"$@\"" &> /dev/null; then
+	exit 0
+elif which growlnotify &> /dev/null; then
 	growlnotify -m "$@"
-elif osascript -e "display notification \"$@\"" &> /dev/null; then
-	return 0;
 else
 	say alert: "$@"
 fi
