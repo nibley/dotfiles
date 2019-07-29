@@ -1,0 +1,12 @@
+#! /usr/bin/env bash
+
+gtimeout 1 nc -z "$1" "$2" &> /dev/null
+st=$?
+
+if [[ $st == 0 ]]; then
+	echo "open"
+elif [[ $st == 1 ]]; then
+	echo "closed"
+elif [[ $st == 124 ]]; then
+	echo "timed out"
+fi
