@@ -25,3 +25,5 @@ whatis
 xar
 xzdiff
 nmap
+/bin/df
+/usr/bin/dig
