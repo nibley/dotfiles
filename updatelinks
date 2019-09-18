@@ -2,7 +2,7 @@
 
 # SOFT-LINK OUTWARDS
 # not working
-# linkup -s bin ~
+# linkup -s bin ~ #TODO
 
 # HARD-LINK OUTWARDS
 linkup profile ~/.profile
