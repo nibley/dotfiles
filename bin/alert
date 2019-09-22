@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
+if [ $# -eq 0 ]; then
+	set - "done"
+fi
+
 if osascript -e "display notification \"$@\"" &> /dev/null; then
 	exit 0
 elif which growlnotify &> /dev/null; then
