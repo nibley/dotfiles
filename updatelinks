@@ -9,6 +9,7 @@ linkup profile ~/.profile
 linkup profile_afterzsh ~/.profile_afterzsh
 linkup zshrc ~/.zshrc
 linkup screenrc ~/.screenrc
+linkup tmux.conf ~/.tmux.conf
 linkup vimrc ~/.vimrc
 linkup aliases ~/.aliases
 linkup MAIN.zsh-theme ~/.oh-my-zsh/custom/themes
