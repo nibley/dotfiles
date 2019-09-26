@@ -16,7 +16,7 @@ prompt_git() {
 
 #
 
-local ret_status="%(?:%{$fg_bold[cyan]%}➜:%{$fg_bold[red]%}➜) "
+local ret_status="%(?:%{$fg_bold[cyan]%}⬧:%{$fg_bold[red]%}⬧) "
 
 #
 
