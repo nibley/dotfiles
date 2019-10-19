@@ -1,7 +1,6 @@
 ### Aliases (shell-agnostic)
 ###
 #
-echo "sourcing .aliases"
 
 ###
 ## technical
