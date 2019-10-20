@@ -32,6 +32,7 @@ alias c='chromekill'
 alias firekill='pgrep firefox | xargs -n1 pgrep -P | xargs kill -9'
 alias f=firekill
 alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias b='bravekill'
 
 alias pscut="tr -s ' ' | cut -d ' ' -f2"
 
