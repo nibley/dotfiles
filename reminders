@@ -30,5 +30,6 @@ nmap
 /usr/bin/RezWack
 /usr/bin/pr
 /usr/bin/groff
+/usr/bin/at
 /usr/bin/fmt
 nl
