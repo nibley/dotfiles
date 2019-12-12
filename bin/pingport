@@ -1,6 +1,8 @@
 #! /usr/bin/env bash
 
-gtimeout 1 nc -z "$1" "$2" &> /dev/null
+ncstr="nc -z \"$1\" \"$2\""
+
+#gtimeout 1 nc -z "$1" "$2" &> /dev/null) 
 st=$?
 
 if [[ $st == 0 ]]; then

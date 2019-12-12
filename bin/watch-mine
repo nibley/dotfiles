@@ -1,0 +1,43 @@
+#! /usr/bin/env bash
+
+# args
+#   1: command to monitor for changes in its result
+# [ 2: command to run when there's a change
+#	   by default, command line and notifications ]
+# [ 3: time in seconds between checks (defaults to 1) ]
+
+# TODO
+#######
+# don't sleep any extra to repaint the "changed"
+# show the command when not showing "changed"
+	# may need subtraction
+# multiple lines?
+	# currently using echo as $2 is interesting
+
+
+echo -ne "       \t"
+echo -n $(eval "$1") | tr "\n" "\t"
+while true; do
+	res=$(echo $(eval "$1") | tr "\n" "\t")
+	if [[ $res != ${oldres-$res} ]]; then
+
+		if [[ "$(ps -o state= $$)" == *"+"* ]]; then
+			echo -ne "\rchanged"
+			sleep 0.3
+			echo -ne "\r       "
+			echo -ne "\t$res"
+
+			# clear the whole line
+			echo -ne "\033[6n"
+			read -s -d ";" garbage
+			read -s -d R col
+			yes " " | head -n $(( $(tput cols)-$col )) | tr -d "\n"
+		fi
+		
+		alert "change for \"$1\" \"$res\""
+
+		[[ -n "$2" ]] && eval "$2"
+	fi
+	oldres="$res"
+	sleep ${3-1}
+done

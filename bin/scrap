@@ -4,5 +4,6 @@
 #TODO look into quote parsing of accidental below, would inner double quotes work??
  # touch "$SCRAPSDIR/$(tr " " _ <<< $@)"
 
-SCRAPSDIR="$HOME/sync/scraps"
+SCRAPSDIR="$HOME/homesync/sync/scraps"
+#SCRAPSDIR="$HOME/sync/scraps"
 touch "$SCRAPSDIR/$(tr ' ' _ <<< $@)"
