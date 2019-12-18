@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+if [ -n "$1" ]; then
+ IN="$1";
+else
+ read IN # This reads a string from stdin and stores it in a variable called IN
+fi
+
