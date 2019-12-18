@@ -6,4 +6,6 @@
 
 SCRAPSDIR="$HOME/homesync/sync/scraps"
 #SCRAPSDIR="$HOME/sync/scraps"
-touch "$SCRAPSDIR/$(tr ' ' _ <<< $@)"
+newfile="$SCRAPSDIR/$(tr ' ' _ <<< $@)"
+touch "$newfile"
+echo "$@" > "$newfile" 
