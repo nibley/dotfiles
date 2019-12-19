@@ -77,7 +77,8 @@ export UPDATE_ZSH_DAYS=7
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  osx
+  #osx
+  #globalias
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -112,5 +113,11 @@ source $HOME/.profile_afterzsh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NVM_DIR="/Users/alex/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+###-tns-completion-start-###
+if [ -f /home/alex/.tnsrc ]; then 
+    source /home/alex/.tnsrc 
+fi
+###-tns-completion-end-###

@@ -15,3 +15,4 @@ source ~/.aliases.private
 #
 
 
+source lesscolors

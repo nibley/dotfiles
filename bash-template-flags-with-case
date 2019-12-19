@@ -1,0 +1,17 @@
+#! /usr/bin/env bash
+
+val=2
+
+case "$1" in
+	-d|-dir|--d|--dir) 
+		shift
+		if test $# -gt 0; then
+			val="$1"
+		else
+			echo "supply a directory after that option" 1>&2
+			exit 1
+		fi
+		shift
+		;;
+esac
+

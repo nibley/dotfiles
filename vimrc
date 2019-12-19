@@ -19,3 +19,5 @@ map <Up> <Nop>
 map <Down> <Nop>
 
 colorscheme koehler
+
+set mouse=a

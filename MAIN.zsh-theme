@@ -14,15 +14,13 @@ prompt_git() {
 	fi	
 }
 
-#
-
-#local ret_status="%(?:%{$fg_bold[cyan]%}⬧:%{$fg_bold[red]%}⬧)"
-local ret_status="%(?:%{$fg_bold[cyan]%}:%{$fg_bold[red]%})_"
-
+local gem="☯"
+local ret_status="%(?:%{$fg_bold[cyan]%}:%{$fg_bold[red]%})$gem"
 
 #
 
-PROMPT='${ret_status}%{$fg_bold[red]%}$USER@$(hostname | head -c 1)%{$reset_color%}%{$fg[blue]%}%c %{$reset_color%}$(prompt_git)'
+PROMPT='
+${ret_status} %{$fg_bold[red]%}$USER@$(hostname | head -c 1)%{$reset_color%}%{$fg[blue]%}%c %{$reset_color%}$(prompt_git)'
 
 # prompt_git
 # git_prompt_info
