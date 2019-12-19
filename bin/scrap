@@ -22,6 +22,7 @@ esac
 
 newfile="$SCRAPSDIR/$(tr ' ' _ <<< $@)"
 touch "$newfile"
+echo "scrap" >> "$newfile"
 echo "$@" >> "$newfile" 
 echo "made scrap" 1>&2
 echo "$newfile"
