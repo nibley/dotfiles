@@ -12,6 +12,7 @@ export SAVEHIST=55555
 
 setopt CORRECT
 setopt MAIL_WARNING
+unsetopt HIST_VERIFY
 
 # maybe redo iTerm2 shell integration for zsh
 # export ZLE_REMOVE_SUFFIX_CHARS=""
