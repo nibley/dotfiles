@@ -2,7 +2,7 @@ source ~/.profile
 
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
+export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
 
 if [[ -e "${HOME}/.iterm2_shell_integration.zsh" ]]; then 
 	source "${HOME}/.iterm2_shell_integration.zsh"
