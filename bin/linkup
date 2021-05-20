@@ -1,5 +1,9 @@
 #! /usr/bin/env bash
 
+# TODO
+# when soft-linking, different source values are required. 
+# adjust for this automatically
+
 backup="$*"
 # soft="0"
 while getopts ":s" opt; do
