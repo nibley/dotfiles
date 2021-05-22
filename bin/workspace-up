@@ -1,0 +1,13 @@
+#! /usr/bin/env bash
+
+cmdname=$(basename "$0")
+IFS='-'
+read -ra split <<< "$cmdname"
+final=${split[-1]}
+echo $final
+
+mod=$(wmctrl -d | wc -l)
+cur=$(wmctrl -d | grep '*' | cut -d " " -f1)
+[[ $final = down ]] && delta=1 || delta=-1
+
+wmctrl -s $(echo $(( ($cur + $delta) % $mod )) )

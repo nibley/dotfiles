@@ -1,7 +1,7 @@
 ### Aliases (shell-agnostic)
 ###
 #
-echo "sourcing .aliases"
+alias clone='pbpaste | xargs git clone'
 
 ###
 ## technical
@@ -11,36 +11,52 @@ alias rm='rm -i'
 alias bpython2=/usr/local/bin/bpython
 alias gem-user='gem install --user-install -n~/bin --no-rdoc "$@"'
 
+alias commands='echo $PATH | tr ":" "\n" | while read adir; do ls $adir 2>/dev/null | while read afile; do echo $adir/$afile; done; done'
+alias tree='tree --noreport'
+alias nodirs='comm -23 <(tree -in --noreport -L 1 | sort) <(tree -ind --noreport -L 1 | sort)'
+alias dirsize='du -sh'
+
+# networking
+alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
+
 # git
 alias gx='gc -m . && echo && gp'
-alias gax='gaa && echo; gx && echo; gst'
+alias gax='gaa && echo && gx && echo; gst'
 alias gsti='gst --ignored=matching "./*"'
-
-alias tree='tree --noreport'
-alias nodirs='comm -23 <(tree -in --noreport -L 1) <(tree -ind --noreport -L 1)'
-alias dirsize='du -sh'
 
 ###
 ## general
 #
-alias chromekill='ps ux | grep "[C]hrome Helper --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
+
+alias run='$(pbpaste)'
+alias rn='run'
+
+alias chromekill='ps ux | grep "[C]hrome Helper (Renderer) --type=renderer" | grep -v extension-process | tr -s " " | cut -d " " -f2 | xargs kill'
 alias c='chromekill'
 # TODO use a script with options
 alias firekill='pgrep firefox | xargs -n1 pgrep -P | xargs kill -9'
 alias f=firekill
-alias bravekill="ps ux | grep '[B]rave Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias b='bravekill'
+
+alias watchprev='watch "!!"'
+
+alias pscut="tr -s ' ' | cut -d ' ' -f2"
 
 alias ksuis='killall SystemUIServer'
 
 alias kanye='imgcat ~/Pictures/tenor.gif'
 
 alias dockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"spacer-tile\";}"'
+alias smalldockspace='defaults write com.apple.dock persistent-apps -array-add "{tile-data={}; tile-type=\"small-spacer-tile\";}"'
 
 alias reveal='open -R'
+alias quicklook='qlmanage -p'
 
 alias trash='xargs -I % -n 1 mv % ~/.Trash <<< '
 
 alias listvoices='say -v "?"'
+
+alias cat='bat'
 
 ###
 ## sound
@@ -64,4 +80,8 @@ alias screensaver='/System/Library/CoreServices/ScreenSaverEngine.app/Contents/M
 ###
 ## not strictly aliases
 #
-mkcdir(){ mkdir -p -- "$1" && cd -- "$1" }
+mkcdir(){ mkdir -p -- "$1" && cd -- "$1"; }
+duck () { command duck 2> >(grep -v NSCFString) "$@" \
+	&& alert 'ftp succeeded' \
+	|| alert 'ftp failed';
+}

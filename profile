@@ -1,13 +1,16 @@
-echo "sourcing .profile"
+#export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
-export EDITOR="subl -w"
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-
-export PATH="$HOME/bin:$PATH"
+# don't want an initial colon
+export "PKG_CONFIG_PATH=${PKG_CONFIG_PATH:+${PKG_CONFIG_PATH}:}/opt/X11/lib/pkgconfig"
 
 export CLICOLOR=1
+#stty icrnl # turn carriage returns into newlines
 
 source ~/.aliases 
 source ~/.aliases.private
 
-stty icrnl # turn carriage returns into newlines
+#productivity
+#
+
+
+source lesscolors

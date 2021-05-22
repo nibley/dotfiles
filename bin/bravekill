@@ -1,0 +1,6 @@
+#! /usr/bin/env bash
+
+ps ux | grep '[b]rave' | grep 'type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill \
+	&& echo success \
+	|| echo failure
+

@@ -1,7 +1,6 @@
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 " use w!! to really write when you forgot to sudo vim
 
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
@@ -18,3 +17,7 @@ map <Left> <Nop>
 map <Right> <Nop>
 map <Up> <Nop>
 map <Down> <Nop>
+
+colorscheme koehler
+
+set mouse=a

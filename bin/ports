@@ -1,0 +1,4 @@
+#! /usr/bin/env bash
+
+netstat_out=$(netstat -tulpn 2>/dev/null)
+test $? -eq 0 && echo $netstat_out || lsof -i | grep LISTEN

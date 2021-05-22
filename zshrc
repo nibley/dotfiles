@@ -1,6 +1,10 @@
 source ~/.profile
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+export PATH="$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/libexec:$PATH"
+
+export EDITOR='vim'
 
 if [[ -e "${HOME}/.iterm2_shell_integration.zsh" ]]; then 
 	source "${HOME}/.iterm2_shell_integration.zsh"
@@ -10,6 +14,7 @@ export SAVEHIST=55555
 
 setopt CORRECT
 setopt MAIL_WARNING
+unsetopt HIST_VERIFY
 
 # maybe redo iTerm2 shell integration for zsh
 # export ZLE_REMOVE_SUFFIX_CHARS=""
@@ -22,7 +27,7 @@ ZSH_THEME="MAIN"
 ###################
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/alex/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -75,10 +80,12 @@ export UPDATE_ZSH_DAYS=7
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  osx
+  #osx
+  #globalias
 )
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.profile_afterzsh
 
 # User configuration
 
@@ -108,3 +115,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+###-tns-completion-start-###
+if [ -f /home/alex/.tnsrc ]; then 
+    source /home/alex/.tnsrc 
+fi
+###-tns-completion-end-###

@@ -1,1 +1,7 @@
-echo "$1" | tr 'a-zA-Z' 'n-za-mN-ZA-M'
+#! /usr/bin/env python3
+
+import fileinput
+import codecs
+
+for line in fileinput.input():
+    print(codecs.encode(line, 'rot_13'),end='')

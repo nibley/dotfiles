@@ -4,5 +4,25 @@
 #TODO look into quote parsing of accidental below, would inner double quotes work??
  # touch "$SCRAPSDIR/$(tr " " _ <<< $@)"
 
-SCRAPSDIR="$HOME/sync/scraps"
-touch "$SCRAPSDIR/$(tr ' ' _ <<< $@)"
+SCRAPSDIR="$HOME/homesync/sync/scraps"
+#SCRAPSDIR="$HOME/sync/scraps"
+
+case "$1" in
+	-d|-dir|--d|--dir) 
+		shift
+		if test $# -gt 0; then
+			SCRAPSDIR="$1"
+		else
+			echo "supply a directory after that option" 1>&2
+			exit 1
+		fi
+		shift
+		;;
+esac
+
+newfile="$SCRAPSDIR/$(tr ' ' _ <<< $@)"
+touch "$newfile"
+echo "scrap" >> "$newfile"
+echo "$@" >> "$newfile" 
+echo "made scrap" 1>&2
+echo "$newfile"
