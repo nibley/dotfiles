@@ -1,8 +1,12 @@
 #! /usr/bin/env python3
 
+# TODO accept ^L to clear
+
 import random
+
+choices = ['yes', 'no']
 
 while True:
   input()
-  print(random.choice(['yes','no']),end='')
+  print(random.choice(choices), end='')
 
