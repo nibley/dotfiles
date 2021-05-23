@@ -13,4 +13,4 @@ source ~/.aliases.private
 #
 
 
-source lesscolors
+#source lesscolors
