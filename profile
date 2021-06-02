@@ -11,6 +11,6 @@ source ~/.aliases.private
 
 #productivity
 #
+#source lesscolors
 
 
-source lesscolors
