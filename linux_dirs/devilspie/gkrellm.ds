@@ -1,0 +1,8 @@
+(if (is (window_name) "gkrellm")
+  (begin
+    (skip_tasklist)
+    (skip_pager)
+    (below)
+    (pin)
+  )
+)
