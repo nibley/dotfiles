@@ -1,0 +1,2 @@
+git config --global http.postBuffer 500000000
+
