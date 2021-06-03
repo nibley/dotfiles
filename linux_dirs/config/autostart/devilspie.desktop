@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name="devilspie"
+GenericName="devilspie"
+Comment="is this necesery?"
+Exec=/usr/bin/devilspie
+Terminal=false
+Type=Application
+X-Gnome-Autostart=true

@@ -5,5 +5,9 @@
 # - for mac
 # - - https://discussions.apple.com/thread/2211774
 
+
+# TODO
+# - other OSes
+
 osascript -e 'beep'
 
