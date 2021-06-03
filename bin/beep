@@ -1,3 +1,9 @@
 #! /usr/bin/env bash
+
+# TODO use system sound channel per OS
+# instead of normal media one
+# - for mac
+# - - https://discussions.apple.com/thread/2211774
+
 osascript -e 'beep'
 
