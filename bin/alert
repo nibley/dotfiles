@@ -4,12 +4,27 @@ if [ $# -eq 0 ]; then
 	set - "done"
 fi
 
+backup="$*"
+beep='false'
+while getopts ":b" opt; do
+	case ${opt} in
+		b)
+			beep='true';
+	esac
+done
+shift $((OPTIND-1))
+
 if osascript -e "display notification \"$@\"" &> /dev/null; then
-	exit 0
+	:
 elif which growlnotify &> /dev/null; then
 	growlnotify -m "$@"
 elif which notify-send &> /dev/null; then
 	notify-send "$@"
 else
-	say alert: "$@"
+	say "alert: $@"
 fi
+
+if ${beep}; then
+	beep
+fi
+
